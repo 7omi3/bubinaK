@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url('https://media.istockphoto.com/id/1173451503/vector/space-background-with-realistic-nebula-and-shining-stars-colorful-cosmos-with-stardust-and.jpg?s=612x612&w=0&k=20&c=mEoyUd-7lXPnVzcDgN_LFdHTiGAnkzjlgtXEte9KMVc=');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
+</head>
+<body>
+
+<h1 style="color: white;">Press the button for a compliment!</h1>
+
+<img id="unicorn" src="https://image.similarpng.com/very-thumbnail/2022/01/Cute-unicorn-on-transparent-background-PNG-1.png" style="width:200px;height:200px;">
+<button onclick="giveCompliment()">Give me a compliment!</button>
+
+<p id="compliment" style="color: white;"></p>
+
+<script>
+const compliments = [
+    "Your smile is contagious.",
+    "You look great today.",
+    "You're a smart cookie.",
+    "I bet you make babies smile.",
+    "You have impeccable manners.",
+    "You are making a difference.",
+    "Your kindness is a balm to all who encounter it.",
+    "You're all that and a super-size bag of chips.",
+    "On a scale from 1 to 10, you're an 11.",
+    "You're even more beautiful on the inside than you are on the outside."
+]
+
+function giveCompliment() {
+    const compliment = compliments[Math.floor(Math.random()*compliments.length)];
+    document.getElementById("compliment").innerHTML = compliment;
+}
+</script>
+
+</body>
+</html>
