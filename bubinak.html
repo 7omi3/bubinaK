@@ -52,6 +52,13 @@ button:hover {
   }
 }
 
+#compliment {
+  font-size: 24px;
+  background: -webkit-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 </style>
 </head>
 <body>
@@ -62,7 +69,7 @@ button:hover {
 
 <button onclick="giveCompliment()">Nyomd meg egy dicséretért!</button>
 
-<p id="compliment" style="color: white;"></p>
+<p id="compliment"></p>
 
 <script>
 const compliments = [
@@ -89,4 +96,4 @@ function giveCompliment() {
 </script>
 
 </body>
-</html> 
+</html>
