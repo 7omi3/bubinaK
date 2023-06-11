@@ -20,7 +20,20 @@ body {
   max-width: 90%;
   height: auto;
 }
+button {
+  font-size: 18px;
+  padding: 15px 30px;
+  background-color: hotpink;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
+button:hover {
+  background-color: deeppink;
+}
 @media only screen and (max-width: 600px) {
   h1 {
     font-size: 24px;
@@ -46,20 +59,7 @@ body {
 <button onclick="giveCompliment()">Nyomd meg egy dicséretért!</button>
 
 <p id="compliment" style="color: white;"></p>
-button {
-  font-size: 18px;
-  padding: 15px 30px;
-  background-color: hotpink;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-button:hover {
-  background-color: deeppink;
-}
 <script>
 const compliments = [
     "Te vagy a legszebb kislány a világon.",
