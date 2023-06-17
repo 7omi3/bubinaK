@@ -70,10 +70,14 @@ button:hover {
 
 <p id="compliment"></p>
 
+<h3 style="color: white;">Our special day counter</h3>
+
+<p id="daysCounter" style="color: white;"></p>
+
 <script>
 const compliments = [
     "Te vagy a legszebb kislány a világon.",
-    "Néha elcsodálkozok, hogy milyen okos kisbaba tudsz lenni.",
+    "Néha elcsodálkozom, hogy milyen okos kisbaba tudsz lenni.",
     "Nézd meg szépen a nyakláncod, és jusson eszedbe, miért kaptad!",
     "Mindig mosolyt csalsz az arcomra.",
     "Amikor meglátlak, mindenem égnek áll, testem és lelkem egyaránt.",
@@ -104,6 +108,26 @@ function giveCompliment() {
     const compliment = compliments[Math.floor(Math.random()*compliments.length)];
     document.getElementById("compliment").innerHTML = compliment;
 }
+
+// Set the date you're counting down to
+var countDownDate = new Date("Oct 22, 2020 00:00:00").getTime();
+
+// Update the count down every day
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = now - countDownDate;
+    
+  // Time calculations for days
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    
+  // Output the result
+  document.getElementById("daysCounter").innerHTML = days + " days since our special date";
+}, 1000);
+
 </script>
 
 </body>
