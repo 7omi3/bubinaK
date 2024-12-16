@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pampernek</title>
 <style>
 body {
   background-image: url('https://t3.ftcdn.net/jpg/02/50/39/72/360_F_250397206_HuBj2V5oEytcqonzpzum4IjEjtAsZq3g.jpg');
@@ -87,17 +88,34 @@ body {
   position: absolute;
   width: 50px;
   height: 50px;
-  background-image: url('./butterfly.png');
+  background-image: url('./butterfly.png'); 
   background-size: cover;
   transform-origin: center;
   transition: transform 0.3s ease, filter 0.3s ease;
-  z-index: 1;
+  z-index: 2; /* Ensure butterfly is above the aura */
+  pointer-events: auto;
 }
+
 .butterfly:hover {
   transform: scale(1.3) rotateZ(10deg);
   filter: brightness(1.3);
+  position: relative; /* Needed for positioning the aura pseudo-element */
 }
-/* Speech bubble on hover */
+
+.butterfly:hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(rgba(255,182,193,0.5), transparent 70%);
+  z-index: -1; /* Place aura behind the butterfly */
+}
+
+/* Bubble styling remains the same */
 .butterfly .bubble {
   display: none;
   position: absolute;
@@ -110,7 +128,9 @@ body {
   border-radius: 12px;
   font-size: 14px;
   white-space: nowrap;
+  z-index: 9999; /* Ensure the bubble is in front of the butterfly */
 }
+
 .butterfly:hover .bubble {
   display: block;
 }
@@ -338,7 +358,7 @@ button::before {
 <div id="sun"></div>
 <div class="butterflies" id="butterflies"></div>
 
-<h1>Ha éppen elfelejtenéd, hogy mennyire szeret a Papi!!</h1>
+<h1>Ha éppen elfelejtenéd, hogy mennyire szeret Papi!!</h1>
 
 <img id="unicorn" src="https://i.imgur.com/DuIfOm5.png" title="Double-click me!">
 
