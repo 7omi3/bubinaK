@@ -12,85 +12,43 @@ body {
   text-align: center;
   overflow-x: hidden;
   cursor: url('https://i.imgur.com/QZAnAUp.png') 16 16, auto; 
-  /* Background remains the same from the original code */
-  background: #fff; 
-  position: relative;
-  /* Create a subtle gradient overlay */
-  background: linear-gradient(to bottom, rgba(255, 182, 193, 0.3), rgba(255, 228, 196, 0.3)), 
-              url('https://t3.ftcdn.net/jpg/02/50/39/72/360_F_250397206_HuBj2V5oEytcqonzpzum4IjEjtAsZq3g.jpg') no-repeat center center fixed;
+  background: linear-gradient(
+    to bottom, 
+    rgba(255, 182, 193, 0.1), 
+    rgba(255, 228, 196, 0.1)
+  ), 
+  url('https://t3.ftcdn.net/jpg/02/50/39/72/360_F_250397206_HuBj2V5oEytcqonzpzum4IjEjtAsZq3g.jpg') 
+  no-repeat center center fixed;
   background-size: cover;
 }
 
-/* Parallax Background Layers */
-.parallax-container {
-  position: relative;
-  width: 100%;
-  height: 200vh; /* Extended height to allow scrolling */
-  overflow-x: hidden;
-}
-
-.parallax-layer {
-  position: absolute;
-  width: 200%;
-  height: 100vh;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  background-repeat: repeat-x;
-  background-size: contain;
-}
-
-.parallax-layer.clouds {
-  background-image: url('./clouds.png');
-  z-index: 1;
-}
-
-.parallax-layer.hearts {
-  background-image: url('./hearts.png');
-  z-index: 2;
-}
-
-.parallax-layer.stars {
-  background-image: url('./stars.png');
-  z-index: 3;
-}
-
-/* Dynamic greeting */
-#greeting {
-  font-size: 28px;
-  font-weight: bold;
-  margin-top: 20px;
-  text-shadow: 2px 2px 4px #000;
-}
-
-/* Sun (unchanged from original) */
+/* Simplify sun styling */
 #sun {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   background: radial-gradient(circle at center, #FFD700 40%, #FFA500 80%);
   border-radius: 50%;
-  box-shadow: 0 0 40px #ffd700;
+  box-shadow: 0 0 20px #ffd700;
   animation: sunPulse 3s infinite ease-in-out;
   z-index: 10;
 }
 
 @keyframes sunPulse {
-  0% { box-shadow: 0 0 20px #ffd700; transform: scale(1);}
-  50% { box-shadow: 0 0 60px #ffd700; transform: scale(1.1);}
-  100% { box-shadow: 0 0 20px #ffd700; transform: scale(1);}
+  0% { box-shadow: 0 0 10px #ffd700; transform: scale(1);}
+  50% { box-shadow: 0 0 30px #ffd700; transform: scale(1.05);}
+  100% { box-shadow: 0 0 10px #ffd700; transform: scale(1);}
 }
 
-/* Unicorn styling - enhanced */
+/* Unicorn styling: cleaner, less intense shadows */
 #unicorn {
   width:200px; 
   height:200px; 
-  border: 5px solid pink;
+  border: 3px solid pink;
   border-radius: 50%;
-  box-shadow: 0 0 20px pink;
+  box-shadow: 0 0 10px pink;
   position: relative;
   z-index: 5; 
   transition: transform 0.5s ease;
@@ -99,15 +57,14 @@ body {
 #unicorn:hover {
   animation: shake 1s infinite alternate ease-in-out;
   transform: rotate(5deg);
-  box-shadow: 0 0 30px hotpink;
+  box-shadow: 0 0 15px hotpink;
 }
 
 @keyframes shake {
   0% { transform: translateY(0) rotate(5deg); }
-  100% { transform: translateY(-5px) rotate(-5deg); }
+  100% { transform: translateY(-3px) rotate(-5deg); }
 }
 
-/* Hearts when hovering unicorn - unchanged */
 #unicorn:hover::after, #unicorn:hover::before {
   content: "❤";
   position: absolute;
@@ -128,18 +85,15 @@ body {
 
 @keyframes floatHearts {
   0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+  100% { transform: translateY(-50px) scale(1.2); opacity: 0; }
 }
 
-/* Title */
 h1 {
   color: white;
-  text-shadow: 2px 2px 4px #000000;
-  z-index: 5;
+  text-shadow: 1px 1px 2px #000000;
   margin-top: 50px;
 }
 
-/* Compliment button */
 button {
   font-size: 18px;
   padding: 15px 30px;
@@ -155,27 +109,23 @@ button {
 
 button:hover {
   background-color: deeppink;
-  box-shadow: 0 0 20px deeppink;
+  box-shadow: 0 0 10px deeppink;
 }
 
-/* Compliment text */
 #compliment {
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bold;
   color: white;
-  text-shadow: 1px 1px 3px #000;
-  z-index: 5;
+  text-shadow: 1px 1px 2px #000;
   margin: 20px 0;
 }
 
-/* Days counter */
 #daysCounter {
-  z-index: 5;
-  font-size: 20px;
-  text-shadow: 1px 1px 3px #000;
+  font-size: 18px;
+  text-shadow: 1px 1px 2px #000;
 }
 
-/* Butterflies - unchanged basic */
+/* Butterflies - removed circle border */
 .butterflies {
   position: absolute;
   top: 0;
@@ -186,7 +136,6 @@ button:hover {
   z-index: 1;
 }
 
-/* Butterfly styling */
 .butterfly {
   position: absolute;
   width: 50px;
@@ -197,34 +146,29 @@ button:hover {
   transform-origin: center;
   transition: transform 0.3s ease, filter 0.3s ease;
   z-index: 1;
-  border: 2px solid rgba(255,255,255,0.7);
-  border-radius: 50%;
 }
 
 .butterfly:hover {
-  transform: scale(1.3) rotateZ(10deg);
-  filter: brightness(1.3);
+  transform: scale(1.2) rotateZ(5deg);
+  filter: brightness(1.2);
 }
 
-/* Speech bubble */
 .butterfly .bubble {
   display: none;
   position: absolute;
   bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.9);
   color: #000;
-  padding: 8px 12px;
-  border-radius: 12px;
+  padding: 6px 10px;
+  border-radius: 10px;
   font-size: 14px;
   white-space: nowrap;
 }
 .butterfly:hover .bubble {
   display: block;
 }
-
-/* Fly animations dynamically added via JS */
 
 /* Heart Cursor Trail */
 .heart {
@@ -237,14 +181,14 @@ button:hover {
 
 @keyframes moveUp {
   0% { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(-30px) scale(1.5); }
+  100% { opacity: 0; transform: translateY(-20px) scale(1.2); }
 }
 
 /* Sparkle trail for cursor */
 .sparkle {
   position: fixed;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background: radial-gradient(circle, rgba(255,255,255,1) 40%, rgba(255,0,255,0) 70%);
   border-radius: 50%;
   animation: sparkleFade 1s forwards;
@@ -254,25 +198,25 @@ button:hover {
 
 @keyframes sparkleFade {
   0% { opacity: 1; transform: scale(1);}
-  100% { opacity: 0; transform: scale(2);}
+  100% { opacity: 0; transform: scale(1.5);}
 }
 
 /* Magic Mirror Hover Effect */
 .magic-hover:hover {
-  box-shadow: 0 0 15px 5px rgba(255,182,193,0.7), inset 0 0 10px rgba(255,255,255,0.5);
-  border: 3px solid #fff;
+  box-shadow: 0 0 10px 3px rgba(255,182,193,0.5), inset 0 0 5px rgba(255,255,255,0.4);
+  border: 2px solid #fff;
   cursor: pointer;
 }
 
-/* Carousel/Slideshow Container */
+/* Simplified Carousel styling */
 .carousel-container {
   position: relative;
   width: 80%;
   margin: 40px auto;
   overflow: hidden;
-  border: 5px solid pink;
+  border: 3px solid pink;
   border-radius: 10px;
-  box-shadow: 0 0 20px pink;
+  box-shadow: 0 0 10px pink;
 }
 
 .carousel-track {
@@ -282,7 +226,7 @@ button:hover {
 
 .carousel-slide {
   min-width: 100%;
-  height: 300px;
+  height: 250px;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -298,8 +242,8 @@ button:hover {
   background-color: pink;
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   margin: 0 5px;
   cursor: pointer;
 }
@@ -307,10 +251,10 @@ button:hover {
   background-color: hotpink;
 }
 
-/* Pop-up hearts on click anywhere */
+/* Pop-up hearts on click */
 .pop-heart {
   position: fixed;
-  font-size: 24px;
+  font-size: 20px;
   color: hotpink;
   animation: popHeart 2s ease-out forwards;
   pointer-events: none;
@@ -319,7 +263,7 @@ button:hover {
 
 @keyframes popHeart {
   0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  100% { transform: translate(-50%, -200%) scale(1.5); opacity: 0; }
+  100% { transform: translate(-50%, -100%) scale(1.2); opacity: 0; }
 }
 
 /* Wish Jar Widget */
@@ -333,7 +277,7 @@ button:hover {
   text-align: center;
   color: #000;
   z-index: 1000;
-  box-shadow: 0 0 10px #fff;
+  box-shadow: 0 0 5px #fff;
 }
 
 #wishJar {
@@ -361,7 +305,7 @@ button:hover {
   100% { transform: translateX(-50%) translateY(0); opacity:0; }
 }
 
-/* Whimsical Clock */
+/* Clock */
 #clockContainer {
   position: fixed;
   bottom: 20px;
@@ -370,20 +314,20 @@ button:hover {
   padding: 10px;
   border-radius: 10px;
   color: #000;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
   z-index: 1000;
-  box-shadow: 0 0 10px #fff;
+  box-shadow: 0 0 5px #fff;
 }
 
 /* Love Meter */
 #loveMeterContainer {
   margin: 30px auto;
   width: 300px;
-  height: 30px;
+  height: 20px;
   background: rgba(255,255,255,0.2);
-  border-radius: 15px;
-  box-shadow: 0 0 10px hotpink;
+  border-radius: 10px;
+  box-shadow: 0 0 5px hotpink;
   overflow: hidden;
   position: relative;
 }
@@ -413,24 +357,26 @@ button:hover {
   cursor: pointer;
   border-radius: 5px;
   color: #000;
+  font-size: 14px;
 }
 
 #musicPlayer button:hover {
   background: #fff;
 }
 
-/* Responsive adjustments */
 @media only screen and (max-width: 600px) {
   h1 {
     font-size: 24px;
   }
 
   button {
-    font-size: 18px;
+    font-size: 16px;
+    padding: 10px 20px;
   }
 
-  img {
-    max-width: 70%;
+  #unicorn {
+    width:150px; 
+    height:150px;
   }
 
   .carousel-slide {
@@ -445,13 +391,6 @@ button:hover {
 </head>
 <body>
 
-<!-- Parallax Container -->
-<div class="parallax-container">
-  <div class="parallax-layer clouds" style="animation: moveClouds 60s linear infinite;"></div>
-  <div class="parallax-layer hearts" style="animation: moveHearts 90s linear infinite;"></div>
-  <div class="parallax-layer stars" style="animation: moveStars 120s linear infinite;"></div>
-</div>
-
 <div id="sun"></div>
 
 <h1>Ha éppen elfelejtenéd, hogy mennyire szeret a Papi!!</h1>
@@ -465,13 +404,12 @@ button:hover {
 
 <p id="compliment"></p>
 
-<h3 style="color: white; text-shadow: 2px 2px 4px #000;">Szerelem számoló</h3>
+<h3 style="color: white; text-shadow: 1px 1px 2px #000;">Szerelem számoló</h3>
 <p id="daysCounter"></p>
 
-<!-- Carousel -->
 <div class="carousel-container">
   <div class="carousel-track" id="carouselTrack">
-    <!-- Replace these with your images -->
+    <!-- Replace with your images -->
     <div class="carousel-slide" style="background-image: url('./memory1.jpg');"></div>
     <div class="carousel-slide" style="background-image: url('./memory2.jpg');"></div>
     <div class="carousel-slide" style="background-image: url('./memory3.jpg');"></div>
@@ -479,25 +417,21 @@ button:hover {
 </div>
 <div class="carousel-nav" id="carouselNav"></div>
 
-<!-- Wish Jar -->
 <div id="wishJarContainer">
-  <h4>Wish Jar</h4>
+  <h4 style="margin:5px 0;">Wish Jar</h4>
   <div id="wishJar"></div>
-  <button onclick="addNote()">Add a Star</button>
+  <button onclick="addNote()" style="margin-top:5px; font-size:14px;">Add a Star</button>
 </div>
 
-<!-- Clock -->
 <div id="clockContainer">
   <div id="clock"></div>
   <div id="dateDisplay"></div>
 </div>
 
-<!-- Love Meter -->
 <div id="loveMeterContainer">
   <div id="loveMeter"></div>
 </div>
 
-<!-- Music Player -->
 <div id="musicPlayer">
   <button id="musicToggle">Play Music</button>
 </div>
@@ -505,7 +439,7 @@ button:hover {
 <div class="butterflies" id="butterflies"></div>
 
 <script>
-// Original compliments array
+// Compliments and functionalities remain the same
 const compliments = [
     "Te vagy a legszebb kislány a világon.",
     "Néha elcsodálkozom, hogy milyen okos kislány vagy.",
@@ -548,7 +482,7 @@ var x = setInterval(function() {
   document.getElementById("daysCounter").innerHTML = days + " nap mióta elvarázsoltál";
 }, 1000);
 
-// Dynamic greeting based on time
+// Dynamic greeting
 function updateGreeting() {
   const hour = new Date().getHours();
   let greetingText = "Szia, szépség!";
@@ -580,178 +514,4 @@ const butterflyMessages = [
   "Te vagy a szívem királynője!",
 ];
 
-const butterfliesContainer = document.getElementById("butterflies");
-
-for (let i = 0; i < butterflyCount; i++) {
-  const butterfly = document.createElement("div");
-  butterfly.classList.add("butterfly");
-
-  const bubble = document.createElement("div");
-  bubble.classList.add("bubble");
-  bubble.textContent = butterflyMessages[i % butterflyMessages.length];
-  butterfly.appendChild(bubble);
-
-  const startY = Math.floor(Math.random() * 80) + "%";
-  const startX = Math.floor(Math.random() * -20) - 10 + "%";
-  butterfly.style.top = startY;
-  butterfly.style.left = startX;
-
-  const duration = (Math.random() * 15) + 10;
-  const delay = Math.random() * 5;
-
-  const flyKeyframes = `
-    @keyframes fly${i} {
-      0% { transform: translateX(0) translateY(0); }
-      50% { transform: translateX(50vw) translateY(-50px); }
-      100% { transform: translateX(110vw) translateY(0); }
-    }
-  `;
-  
-  let styleSheet = document.createElement("style");
-  styleSheet.type = "text/css";
-  styleSheet.innerHTML = flyKeyframes;
-  document.head.appendChild(styleSheet);
-
-  butterfly.style.animation = `fly${i} ${duration}s linear ${delay}s infinite`;
-
-  butterfliesContainer.appendChild(butterfly);
-}
-
-// Pop-up hearts on click anywhere
-document.addEventListener('click', function(e) {
-  const popHeart = document.createElement('div');
-  popHeart.classList.add('pop-heart');
-  popHeart.style.left = e.pageX + 'px';
-  popHeart.style.top = e.pageY + 'px';
-  popHeart.innerText = '❤';
-  document.body.appendChild(popHeart);
-
-  setTimeout(() => {
-    popHeart.remove();
-  }, 2000);
-
-  // Increase love meter on interactions
-  increaseLoveMeter(5);
-});
-
-// Sparkle trail behind cursor
-document.addEventListener('mousemove', function(e){
-  const sparkle = document.createElement('div');
-  sparkle.classList.add('sparkle');
-  sparkle.style.left = e.pageX + 'px';
-  sparkle.style.top = e.pageY + 'px';
-  document.body.appendChild(sparkle);
-
-  setTimeout(() => {
-    sparkle.remove();
-  }, 1000);
-});
-
-// Parallax animations
-document.addEventListener('scroll', function(){
-  let scrollTop = window.pageYOffset;
-  document.querySelector('.clouds').style.backgroundPositionX = -scrollTop * 0.2 + 'px';
-  document.querySelector('.hearts').style.backgroundPositionX = -scrollTop * 0.5 + 'px';
-  document.querySelector('.stars').style.backgroundPositionX = -scrollTop * 0.8 + 'px';
-});
-
-// Carousel
-const carouselTrack = document.getElementById('carouselTrack');
-const slides = Array.from(carouselTrack.children);
-const nav = document.getElementById('carouselNav');
-
-slides.forEach((slide, index) => {
-  const btn = document.createElement('button');
-  if(index === 0) btn.classList.add('active');
-  nav.appendChild(btn);
-});
-
-const navButtons = Array.from(nav.children);
-let currentSlide = 0;
-
-navButtons.forEach((button, index) => {
-  button.addEventListener('click', () => {
-    currentSlide = index;
-    carouselTrack.style.transform = `translateX(-${100 * currentSlide}%)`;
-    navButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-  });
-});
-
-// Wish Jar
-function addNote() {
-  const note = document.createElement('div');
-  note.classList.add('note');
-  note.style.backgroundColor = getRandomPastelColor();
-  document.getElementById('wishJar').appendChild(note);
-
-  setTimeout(() => note.remove(), 3000);
-
-  // Increase love meter on interaction
-  increaseLoveMeter(3);
-}
-
-function getRandomPastelColor() {
-  const pastelColors = ['#FFD1DC','#FFE4E1','#E0BBE4','#FFDFD3','#FFCDD2','#F8BBD0','#FCE4EC'];
-  return pastelColors[Math.floor(Math.random()*pastelColors.length)];
-}
-
-// Whimsical Clock
-function updateClock() {
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = String(now.getMinutes()).padStart(2,'0');
-  const seconds = String(now.getSeconds()).padStart(2,'0');
-  const day = now.toLocaleDateString('hu-HU', {weekday: 'long'});
-  const date = now.toLocaleDateString('hu-HU');
-
-  document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
-  document.getElementById('dateDisplay').textContent = `${day}, ${date}`;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// Love Meter
-let loveMeterValue = 0;
-function increaseLoveMeter(amount) {
-  loveMeterValue = Math.min(loveMeterValue + amount, 100);
-  document.getElementById('loveMeter').style.width = loveMeterValue + '%';
-}
-
-// Background Music
-const music = new Audio('audio/background-music.mp3');
-music.loop = true;
-music.volume = 0.4; 
-let musicPlaying = false;
-
-document.getElementById('musicToggle').addEventListener('click', () => {
-  if(!musicPlaying) {
-    music.play();
-    musicPlaying = true;
-    document.getElementById('musicToggle').textContent = 'Pause Music';
-  } else {
-    music.pause();
-    musicPlaying = false;
-    document.getElementById('musicToggle').textContent = 'Play Music';
-  }
-});
-
-// Optional Sound effect on hover or click (for buttons)
-document.querySelectorAll('button').forEach(btn => {
-  btn.addEventListener('mouseover', () => {
-    const chime = new Audio('audio/chime.mp3');
-    chime.volume = 0.2;
-    chime.play();
-  });
-});
-
-// Optional: Add sound effect to compliments button click
-document.querySelectorAll('button')[0].addEventListener('click', () => {
-    const popSound = new Audio('audio/pop.mp3');
-    popSound.volume = 0.3;
-    popSound.play();
-});
-</script>
-
-</body>
-</html>
+c
