@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <style>
 body {
   background-image: url('https://t3.ftcdn.net/jpg/02/50/39/72/360_F_250397206_HuBj2V5oEytcqonzpzum4IjEjtAsZq3g.jpg');
@@ -16,6 +18,93 @@ body {
   color: white;
   font-family: Arial, sans-serif;
   text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Radiating Sun */
+#sun {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at center, #FFD700 40%, #FFA500 80%);
+  border-radius: 50%;
+  box-shadow: 0 0 40px #ffd700;
+  animation: sunPulse 3s infinite ease-in-out;
+  z-index: 10;
+}
+
+@keyframes sunPulse {
+  0% { box-shadow: 0 0 20px #ffd700; transform: scale(1);}
+  50% { box-shadow: 0 0 60px #ffd700; transform: scale(1.1);}
+  100% { box-shadow: 0 0 20px #ffd700; transform: scale(1);}
+}
+
+/* Butterflies Container */
+.butterflies {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.butterfly {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-image: url('https://i.imgur.com/OYtSpZ4.png');
+  background-size: cover;
+  animation: floatButterfly 10s linear infinite;
+  cursor: pointer;
+  pointer-events: auto;
+  transform-origin: center;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Hover effects for butterflies */
+.butterfly:hover {
+  transform: scale(1.3) rotateZ(10deg);
+  filter: brightness(1.3);
+}
+
+/* Speech bubble on hover */
+.butterfly .bubble {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.8);
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.butterfly:hover .bubble {
+  display: block;
+}
+
+/* Random floating animation for butterflies */
+@keyframes floatButterfly {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-30px) scale(1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+h1 {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 img {
@@ -56,11 +145,15 @@ button:hover {
   font-size: 25px;
   font-weight: bold;
   color: white;
+  text-shadow: 1px 1px 3px #000;
 }
-
 </style>
 </head>
 <body>
+
+<div id="sun"></div>
+
+<div class="butterflies" id="butterflies"></div>
 
 <h1 style="color: white;">Ha éppen elfelejtenéd, hogy mennyire szeret a Papi!!</h1>
 
@@ -75,6 +168,7 @@ button:hover {
 <p id="daysCounter" style="color: white;"></p>
 
 <script>
+// Compliment list
 const compliments = [
     "Te vagy a legszebb kislány a világon.",
     "Néha elcsodálkozom, hogy milyen okos kisbaba tudsz lenni.",
@@ -102,32 +196,56 @@ const compliments = [
     "Ki kéne tiltani az éttermekből, olyan édes vagy.",
     "Kíváncsi voltam, vajon íze olyan jó-e, mint amilyennek látszik. És igen, pont olyan jó, tökéletes",
     "Nappaliban kanapé, hazavársz de elalszol, megérkezek és felviszlek az ágyba, közben felnézel rám a karjaimban, elmosolyodsz és vissza is alszol."
-  ];
+];
 
 function giveCompliment() {
     const compliment = compliments[Math.floor(Math.random()*compliments.length)];
     document.getElementById("compliment").innerHTML = compliment;
 }
 
-// Set the date you're counting down to
+// Countdown
 var countDownDate = new Date("Oct 22, 2020 00:00:00").getTime();
-
-// Update the count down every day
 var x = setInterval(function() {
-
-  // Get today's date and time
   var now = new Date().getTime();
-    
-  // Find the distance between now and the count down date
   var distance = now - countDownDate;
-    
-  // Time calculations for days
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    
-  // Output the result
   document.getElementById("daysCounter").innerHTML = days + " nap mióta elvarászoltál";
 }, 1000);
 
+
+// Add butterflies
+const butterflyCount = 10;
+const butterflyMessages = [
+  "Te vagy a világ legédesebb teremtménye!",
+  "Csak rád gondolok, kis pillangóm!",
+  "Szeretlek!",
+  "Te vagy az én legfényesebb csillagom!",
+  "Nélküled sivár lenne a világ!",
+  "Szívem örökre a tiéd!",
+  "Csak mosolyogj, gyönyörű vagy!",
+  "Cukorborsó, imádlak!",
+  "Körülötted forog a világ!",
+  "Te vagy az én boldogságom!"
+];
+
+const butterfliesContainer = document.getElementById("butterflies");
+
+for (let i = 0; i < butterflyCount; i++) {
+  const butterfly = document.createElement("div");
+  butterfly.classList.add("butterfly");
+  
+  // Random position and animation delay
+  butterfly.style.top = Math.random()*80 + "%";
+  butterfly.style.left = Math.random()*90 + "%";
+  butterfly.style.animationDelay = Math.random()*5 + "s";
+  
+  const bubble = document.createElement("div");
+  bubble.classList.add("bubble");
+  bubble.textContent = butterflyMessages[i % butterflyMessages.length];
+  
+  butterfly.appendChild(bubble);
+  butterfliesContainer.appendChild(butterfly);
+}
 </script>
 
 </body>
