@@ -174,6 +174,50 @@ body {
   100% { transform: translateY(-5px) }
 }
 
+/* The Jar */
+#jar {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 120px;
+  height: 150px;
+  background-image: url('jar.png'); /* Replace with your jar image */
+  background-size: cover;
+  background-position: center;
+  z-index: 500; /* Make sure it's above the background, but below overlays */
+}
+
+/* Stars for the game */
+.game-star {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url('stars.png'); /* Replace with your star image */
+  background-size: cover;
+  cursor: grab;
+  z-index: 2000;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Congratulatory message */
+#congratsMessage {
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: pink;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  padding: 20px 40px;
+  border-radius: 20px;
+  text-shadow: 1px 1px 2px #000;
+  z-index: 10000;
+}
+
+  
 /* Hearts floating up from unicorn on hover */
 #unicorn:hover::after, #unicorn:hover::before {
   content: "❤";
@@ -535,6 +579,90 @@ sun.addEventListener('mouseleave', () => {
   sun.style.boxShadow = '0 0 40px #ffd700';
 });
 
+// Mini-game logic
+const jar = document.getElementById('jar');
+const congratsMessage = document.getElementById('congratsMessage');
+
+// Number of stars
+const totalStars = 5;
+let collectedStars = 0;
+
+// Create and place stars randomly
+for (let i = 0; i < totalStars; i++) {
+  const star = document.createElement('div');
+  star.classList.add('game-star');
+  // Random position:
+  star.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+  star.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+
+  document.body.appendChild(star);
+
+  // Dragging logic
+  let offsetX, offsetY;
+  let isDragging = false;
+
+  star.addEventListener('mousedown', startDrag);
+  star.addEventListener('touchstart', startDrag, {passive: true});
+
+  function startDrag(e) {
+    isDragging = true;
+    star.style.cursor = 'grabbing';
+    const rect = star.getBoundingClientRect();
+    if (e.touches) e = e.touches[0]; // For touch events
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchmove', drag, {passive: false});
+    document.addEventListener('touchend', endDrag);
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+    e.preventDefault(); // Prevent scrolling on touch devices
+    let clientX = e.clientX, clientY = e.clientY;
+    if (e.touches) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+
+    star.style.left = (clientX - offsetX) + 'px';
+    star.style.top = (clientY - offsetY) + 'px';
+  }
+
+  function endDrag() {
+    isDragging = false;
+    star.style.cursor = 'grab';
+    document.removeEventListener('mousemove', drag);
+    document.removeEventListener('mouseup', endDrag);
+    document.removeEventListener('touchmove', drag);
+    document.removeEventListener('touchend', endDrag);
+
+    // Check if star is dropped inside the jar
+    const jarRect = jar.getBoundingClientRect();
+    const starRect = star.getBoundingClientRect();
+
+    // Simple overlap check: if star center is inside jar area
+    const starCenterX = starRect.left + starRect.width / 2;
+    const starCenterY = starRect.top + starRect.height / 2;
+
+    if (starCenterX > jarRect.left && starCenterX < jarRect.right && 
+        starCenterY > jarRect.top && starCenterY < jarRect.bottom) {
+      // Star is inside jar, collect it
+      star.remove();
+      collectedStars++;
+      if (collectedStars === totalStars) {
+        // All stars collected
+        congratsMessage.style.display = 'block';
+        setTimeout(() => {
+          congratsMessage.style.display = 'none';
+        }, 3000);
+      }
+    }
+  }
+}
+
+  
 // Generate random stars in background
 const starContainer = document.getElementById('stars');
 for (let i = 0; i < 100; i++) {
