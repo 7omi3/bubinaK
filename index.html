@@ -4,60 +4,67 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Whimsical Love Page</title>
-<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
 body {
   margin: 0;
-  font-family: 'Comic Neue', Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   color: white;
+  text-align: center;
   overflow-x: hidden;
-  /* Pastel gradient background */
-  background: linear-gradient(to bottom, #ffd6e7, #ffc4ea, #ffb1ec, #ff9eef);
-  background-attachment: fixed;
+  cursor: url('https://i.imgur.com/QZAnAUp.png') 16 16, auto; 
+  /* Background remains the same from the original code */
+  background: #fff; 
+  position: relative;
+  /* Create a subtle gradient overlay */
+  background: linear-gradient(to bottom, rgba(255, 182, 193, 0.3), rgba(255, 228, 196, 0.3)), 
+              url('https://t3.ftcdn.net/jpg/02/50/39/72/360_F_250397206_HuBj2V5oEytcqonzpzum4IjEjtAsZq3g.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
-/* Parallax layers */
-.parallax {
+/* Parallax Background Layers */
+.parallax-container {
   position: relative;
   width: 100%;
-  height: 200vh; /* enough height to allow scrolling */
-  overflow: hidden;
+  height: 200vh; /* Extended height to allow scrolling */
+  overflow-x: hidden;
 }
 
-/* Layered backgrounds (adjust z-index and transform speeds) */
 .parallax-layer {
   position: absolute;
   width: 200%;
-  height: 200%;
+  height: 100vh;
   top: 0;
-  left: 0;
-  background-repeat: repeat;
-  transform: translateZ(0);
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background-repeat: repeat-x;
+  background-size: contain;
 }
 
 .parallax-layer.clouds {
-  background-image: url('https://i.imgur.com/nfLKybt.png'); /* cloud pattern */
-  animation: moveClouds 60s linear infinite;
-  opacity: 0.7;
+  background-image: url('./images/clouds.png');
+  z-index: 1;
 }
 
 .parallax-layer.hearts {
-  background-image: url('https://i.imgur.com/r6ahxjr.png'); /* small hearts pattern */
-  animation: moveHearts 120s linear infinite;
-  opacity: 0.3;
+  background-image: url('./images/hearts.png');
+  z-index: 2;
 }
 
-@keyframes moveClouds {
-  from { background-position:0 0; }
-  to { background-position: 2000px 0; }
+.parallax-layer.stars {
+  background-image: url('./images/stars.png');
+  z-index: 3;
 }
 
-@keyframes moveHearts {
-  from { background-position:0 0; }
-  to { background-position: -2000px 0; }
+/* Dynamic greeting */
+#greeting {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-shadow: 2px 2px 4px #000;
 }
 
-/* Sun - top corner */
+/* Sun (unchanged from original) */
 #sun {
   position: absolute;
   top: 20px;
@@ -77,82 +84,30 @@ body {
   100% { box-shadow: 0 0 20px #ffd700; transform: scale(1);}
 }
 
-/* Butterfly Container */
-.butterflies {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Butterfly style */
-.butterfly {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-image: url('./images/butterfly.png'); /* your butterfly image */
-  background-size: cover;
-  pointer-events: auto;
-  transform-origin: center;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  z-index: 1;
-}
-
-.butterfly:hover {
-  transform: scale(1.3) rotateZ(10deg);
-  filter: brightness(1.3);
-}
-
-/* Speech bubble on hover */
-.butterfly .bubble {
-  display: none;
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.8);
-  color: #000;
-  padding: 8px 12px;
-  border-radius: 12px;
-  font-size: 14px;
-  white-space: nowrap;
-}
-.butterfly:hover .bubble {
-  display: block;
-}
-
-/* Unicorn */
+/* Unicorn styling - enhanced */
 #unicorn {
   width:200px; 
-  height:200px;
+  height:200px; 
   border: 5px solid pink;
   border-radius: 50%;
   box-shadow: 0 0 20px pink;
   position: relative;
-  z-index: 5;
-  margin: 100px auto 20px auto;
-  display: block;
-  background: url('https://i.imgur.com/DuIfOm5.png') center/cover no-repeat;
-  transition: all 0.3s ease;
+  z-index: 5; 
+  transition: transform 0.5s ease;
 }
 
-/* Magic mirror effect (glow) on hover */
 #unicorn:hover {
   animation: shake 1s infinite alternate ease-in-out;
-  box-shadow: 0 0 30px hotpink, 0 0 60px pink;
-  transform: rotate(2deg) scale(1.05);
-  cursor: pointer;
+  transform: rotate(5deg);
+  box-shadow: 0 0 30px hotpink;
 }
 
 @keyframes shake {
-  0% { transform: translateY(0) rotate(0deg) scale(1.05); }
-  100% { transform: translateY(-5px) rotate(-2deg) scale(1.05); }
+  0% { transform: translateY(0) rotate(5deg); }
+  100% { transform: translateY(-5px) rotate(-5deg); }
 }
 
-/* Hearts floating up from unicorn on hover */
+/* Hearts when hovering unicorn - unchanged */
 #unicorn:hover::after, #unicorn:hover::before {
   content: "❤";
   position: absolute;
@@ -176,16 +131,15 @@ body {
   100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
 }
 
-/* Heading */
+/* Title */
 h1 {
   color: white;
   text-shadow: 2px 2px 4px #000000;
   z-index: 5;
-  text-align: center;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
-/* Button */
+/* Compliment button */
 button {
   font-size: 18px;
   padding: 15px 30px;
@@ -194,15 +148,14 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  z-index: 1000;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  z-index: 1000; 
   position: relative;
-  display: block;
-  margin: 20px auto;
 }
 
 button:hover {
   background-color: deeppink;
+  box-shadow: 0 0 20px deeppink;
 }
 
 /* Compliment text */
@@ -212,24 +165,66 @@ button:hover {
   color: white;
   text-shadow: 1px 1px 3px #000;
   z-index: 5;
-  text-align: center;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
-/* Countdown */
-h3 {
-  color: white;
-  text-align: center;
-  margin-top: 40px;
-}
-
+/* Days counter */
 #daysCounter {
-  color: white;
-  text-align: center;
-  font-weight: bold;
   z-index: 5;
-  margin-bottom: 30px;
+  font-size: 20px;
+  text-shadow: 1px 1px 3px #000;
 }
+
+/* Butterflies - unchanged basic */
+.butterflies {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Butterfly styling */
+.butterfly {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-image: url('./images/butterfly.png'); 
+  background-size: cover;
+  pointer-events: auto;
+  transform-origin: center;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  z-index: 1;
+  border: 2px solid rgba(255,255,255,0.7);
+  border-radius: 50%;
+}
+
+.butterfly:hover {
+  transform: scale(1.3) rotateZ(10deg);
+  filter: brightness(1.3);
+}
+
+/* Speech bubble */
+.butterfly .bubble {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.8);
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.butterfly:hover .bubble {
+  display: block;
+}
+
+/* Fly animations dynamically added via JS */
 
 /* Heart Cursor Trail */
 .heart {
@@ -245,140 +240,186 @@ h3 {
   100% { opacity: 0; transform: translateY(-30px) scale(1.5); }
 }
 
-/* Rainbow sparkle cursor trail */
+/* Sparkle trail for cursor */
 .sparkle {
   position: fixed;
   width: 10px;
   height: 10px;
+  background: radial-gradient(circle, rgba(255,255,255,1) 40%, rgba(255,0,255,0) 70%);
   border-radius: 50%;
+  animation: sparkleFade 1s forwards;
   pointer-events: none;
-  animation: sparkleMove 1s ease-out forwards;
-  mix-blend-mode: screen;
-}
-@keyframes sparkleMove {
-  0% {opacity:1;}
-  100% {opacity:0; transform: translateY(-20px) scale(2);}
+  z-index: 9998;
 }
 
-/* Carousel Container */
+@keyframes sparkleFade {
+  0% { opacity: 1; transform: scale(1);}
+  100% { opacity: 0; transform: scale(2);}
+}
+
+/* Magic Mirror Hover Effect */
+.magic-hover:hover {
+  box-shadow: 0 0 15px 5px rgba(255,182,193,0.7), inset 0 0 10px rgba(255,255,255,0.5);
+  border: 3px solid #fff;
+  cursor: pointer;
+}
+
+/* Carousel/Slideshow Container */
 .carousel-container {
-  width: 80%;
-  margin: 50px auto;
   position: relative;
+  width: 80%;
+  margin: 40px auto;
   overflow: hidden;
   border: 5px solid pink;
-  border-radius: 20px;
-  box-shadow: 0 0 30px hotpink;
+  border-radius: 10px;
+  box-shadow: 0 0 20px pink;
 }
 
-.carousel-slide {
+.carousel-track {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
 
-.carousel-slide img {
+.carousel-slide {
   min-width: 100%;
-  border-radius: 20px;
-}
-
-/* Carousel buttons */
-.prevBtn, .nextBtn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: hotpink;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  opacity: 0.8;
-}
-.prevBtn:hover, .nextBtn:hover {
-  background: deeppink;
-}
-.prevBtn {
-  left: 10px;
-}
-.nextBtn {
-  right: 10px;
-}
-
-/* Wish Jar */
-.wish-jar-container {
-  text-align: center;
-  margin: 50px auto;
-}
-.wish-jar {
-  width: 100px;
-  height: 150px;
-  background: url('https://i.imgur.com/gbvRKyV.png') center/contain no-repeat;
-  margin: 0 auto;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
   position: relative;
 }
-.wish-btn {
-  margin-top: 20px;
+
+.carousel-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-/* Floating notes */
+.carousel-nav button {
+  background-color: pink;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+.carousel-nav button.active {
+  background-color: hotpink;
+}
+
+/* Pop-up hearts on click anywhere */
+.pop-heart {
+  position: fixed;
+  font-size: 24px;
+  color: hotpink;
+  animation: popHeart 2s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes popHeart {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -200%) scale(1.5); opacity: 0; }
+}
+
+/* Wish Jar Widget */
+#wishJarContainer {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(255,255,255,0.8);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  color: #000;
+  z-index: 1000;
+  box-shadow: 0 0 10px #fff;
+}
+
+#wishJar {
+  position: relative;
+  width: 100px;
+  height: 150px;
+  background: url('./images/jar.png') no-repeat center/contain;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .note {
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
-  font-size: 20px;
+  background: rgba(255,182,193,0.7);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
   animation: noteFloat 3s ease-out forwards;
 }
 
 @keyframes noteFloat {
-  0% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, -200px); }
+  0% { transform: translateX(-50%) translateY(100%); }
+  100% { transform: translateX(-50%) translateY(0); opacity:0; }
 }
 
-/* Love meter */
-.love-meter-container {
+/* Whimsical Clock */
+#clockContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.8);
+  padding: 10px;
+  border-radius: 10px;
+  color: #000;
+  font-size: 18px;
   text-align: center;
-  margin: 50px auto;
-  position: relative;
+  z-index: 1000;
+  box-shadow: 0 0 10px #fff;
 }
-.love-meter {
-  width: 200px;
-  height: 40px;
-  background: pink;
-  border: 3px solid hotpink;
-  border-radius: 20px;
-  margin: 0 auto;
-  position: relative;
+
+/* Love Meter */
+#loveMeterContainer {
+  margin: 30px auto;
+  width: 300px;
+  height: 30px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 15px;
+  box-shadow: 0 0 10px hotpink;
   overflow: hidden;
+  position: relative;
 }
-.love-meter-fill {
+
+#loveMeter {
+  position: absolute;
+  left: 0;
+  top: 0;
   height: 100%;
+  width: 0%;
   background: linear-gradient(to right, hotpink, deeppink);
-  width: 50%;
   transition: width 0.5s ease;
 }
 
-/* Interactive clock */
-.clock-container {
-  margin: 50px auto;
-  text-align: center;
-  color: white;
-  font-weight: bold;
-}
-.clock-face {
-  font-size: 24px;
-  margin-bottom: 10px;
+/* Music Player */
+#musicPlayer {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 2000;
 }
 
-/* Time-based greeting */
-#greeting {
-  font-size: 28px;
-  text-shadow: 1px 1px 2px #000;
+#musicPlayer button {
+  background: rgba(255,255,255,0.8);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #000;
 }
 
-/* Media Queries */
+#musicPlayer button:hover {
+  background: #fff;
+}
+
+/* Responsive adjustments */
 @media only screen and (max-width: 600px) {
   h1 {
     font-size: 24px;
@@ -392,90 +433,102 @@ h3 {
     max-width: 70%;
   }
 
-  .carousel-container {
-    width: 95%;
+  .carousel-slide {
+    height: 200px;
+  }
+
+  #loveMeterContainer {
+    width: 200px;
   }
 }
 </style>
 </head>
 <body>
 
-<div class="parallax">
-  <div class="parallax-layer hearts"></div>
-  <div class="parallax-layer clouds"></div>
-  
-  <div id="sun"></div>
-  
-  <div class="butterflies" id="butterflies"></div>
-
-  <h1>Ha éppen elfelejtenéd, hogy mennyire szeret a Papi!!</h1>
-  
-  <img id="unicorn" alt="unicorn">
-
-  <button onclick="giveCompliment()">Nyomd meg egy dicséretért!</button>
-  <p id="compliment"></p>
-
-  <h3>Szerelem számoló</h3>
-  <p id="daysCounter"></p>
-
-  <div class="carousel-container">
-    <button class="prevBtn">‹</button>
-    <div class="carousel-slide" id="carouselSlide">
-      <img src="https://i.imgur.com/H9OcPHm.jpg" alt="Memory 1">
-      <img src="https://i.imgur.com/pdJCj1P.jpg" alt="Memory 2">
-      <img src="https://i.imgur.com/UDuoDn7.jpg" alt="Memory 3">
-    </div>
-    <button class="nextBtn">›</button>
-  </div>
-
-  <div class="wish-jar-container">
-    <h2>Kívánság Üveg</h2>
-    <div class="wish-jar" id="wishJar"></div>
-    <button class="wish-btn" onclick="addWishNote()">Tegyél egy kívánságot!</button>
-  </div>
-
-  <div class="love-meter-container">
-    <h2>Szerelmi Szint</h2>
-    <div class="love-meter" onclick="increaseLove()">
-      <div class="love-meter-fill" id="loveMeterFill"></div>
-    </div>
-    <p>Kattints a sávra, hogy növeld a szerelmet!</p>
-  </div>
-
-  <div class="clock-container">
-    <div id="greeting"></div>
-    <div class="clock-face" id="clockFace"></div>
-  </div>
-
+<!-- Parallax Container -->
+<div class="parallax-container">
+  <div class="parallax-layer clouds" style="animation: moveClouds 60s linear infinite;"></div>
+  <div class="parallax-layer hearts" style="animation: moveHearts 90s linear infinite;"></div>
+  <div class="parallax-layer stars" style="animation: moveStars 120s linear infinite;"></div>
 </div>
 
-<!-- Background Music Control -->
-<audio id="bgMusic" loop src="https://www.example.com/music.mp3" volume="0.5"></audio>
-<button style="position:fixed;top:20px;left:20px;z-index:10000;" onclick="toggleMusic()">🔊/🔇</button>
+<div id="sun"></div>
+
+<h1>Ha éppen elfelejtenéd, hogy mennyire szeret a Papi!!</h1>
+
+<p id="greeting"></p>
+
+<img id="unicorn" class="magic-hover" src="https://i.imgur.com/DuIfOm5.png">
+
+<br><br>
+<button onclick="giveCompliment()">Nyomd meg egy dicséretért!</button>
+
+<p id="compliment"></p>
+
+<h3 style="color: white; text-shadow: 2px 2px 4px #000;">Szerelem számoló</h3>
+<p id="daysCounter"></p>
+
+<!-- Carousel -->
+<div class="carousel-container">
+  <div class="carousel-track" id="carouselTrack">
+    <!-- Replace these with your images -->
+    <div class="carousel-slide" style="background-image: url('./images/memory1.jpg');"></div>
+    <div class="carousel-slide" style="background-image: url('./images/memory2.jpg');"></div>
+    <div class="carousel-slide" style="background-image: url('./images/memory3.jpg');"></div>
+  </div>
+</div>
+<div class="carousel-nav" id="carouselNav"></div>
+
+<!-- Wish Jar -->
+<div id="wishJarContainer">
+  <h4>Wish Jar</h4>
+  <div id="wishJar"></div>
+  <button onclick="addNote()">Add a Star</button>
+</div>
+
+<!-- Clock -->
+<div id="clockContainer">
+  <div id="clock"></div>
+  <div id="dateDisplay"></div>
+</div>
+
+<!-- Love Meter -->
+<div id="loveMeterContainer">
+  <div id="loveMeter"></div>
+</div>
+
+<!-- Music Player -->
+<div id="musicPlayer">
+  <button id="musicToggle">Play Music</button>
+</div>
+
+<div class="butterflies" id="butterflies"></div>
 
 <script>
-// Compliments
+// Original compliments array
 const compliments = [
     "Te vagy a legszebb kislány a világon.",
-    "Néha elcsodálkozom, milyen okos kislány vagy.",
-    "Nézd meg a nyakláncod, és jusson eszedbe, miért kaptad!",
+    "Néha elcsodálkozom, hogy milyen okos kislány vagy.",
+    "Nézd meg szépen a nyakláncod, és jusson eszedbe, miért kaptad!",
     "Mindig mosolyt csalsz az arcomra.",
     "Amikor meglátlak, megtelik a szívem melegséggel és szerelemmel.",
-    "Minden nap jobb, mert te létezel.",
+    "Minden egyes nap jobb, mert te létezel.",
     "Emlékszel, amikor az asztalod alatt voltam nálatok :P",
     "Te vagy a szívem hercegnője.",
     "Felnézek rád, milyen bátor vagy.",
     "Gyönyörűbb vagy, mint bármi a világon, és a lelked még csodásabb.",
-    "Csodás a személyiséged, egyedi és megismételhetetlen.",
+    "Régóta nézlek, hogy milyen gyönyörű vagy, végre érezhetem is mindennap.",
     "Most nem vagyok ott, de tessék, itt egy puszi neked!",
     "Akárhol vagyok, rád gondolok.",
+    "Csodás a személyiséged, egyedi és megismételhetetlen.",
     "Minden nappal egyre jobban szeretlek.",
     "Te vagy a legkivételesebb lélek, akit ismerek.",
-    "Lágy, vidám és magával ragadó a mosolyod.",
+    "Lágy, vidám, és magával ragadó a mosolyod.",
     "Te adsz értelmet minden napomnak.",
     "Szívem örökre a tiéd!",
     "Egyetlen pillantásod képes elvarázsolni.",
     "Majd még kapsz új dicséreteket, egy életen át bővítem ezeket.",
+    "Egyetlen nevetésed fényt hoz az életembe.",
     "Te vagy az én inspirációm!",
     "Olyan édes vagy, hogy a méz is megirigyelné.",
     "A világ szebb, mert itt vagy benne."
@@ -484,19 +537,33 @@ const compliments = [
 function giveCompliment() {
     const compliment = compliments[Math.floor(Math.random()*compliments.length)];
     document.getElementById("compliment").innerHTML = compliment;
-    playChime();
 }
 
 // Countdown
 var countDownDate = new Date("Oct 22, 2020 00:00:00").getTime();
-setInterval(function() {
+var x = setInterval(function() {
   var now = new Date().getTime();
   var distance = now - countDownDate;
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   document.getElementById("daysCounter").innerHTML = days + " nap mióta elvarázsoltál";
 }, 1000);
 
-// Butterflies
+// Dynamic greeting based on time
+function updateGreeting() {
+  const hour = new Date().getHours();
+  let greetingText = "Szia, szépség!";
+  if (hour < 12) {
+    greetingText = "Jó reggelt, napsugaram!";
+  } else if (hour < 18) {
+    greetingText = "Szép napot, hercegnőm!";
+  } else {
+    greetingText = "Jó estét, édesem!";
+  }
+  document.getElementById("greeting").textContent = greetingText;
+}
+updateGreeting();
+
+// Add butterflies
 const butterflyCount = 10;
 const butterflyMessages = [
   "Te vagy a világ legédesebb teremtménye!",
@@ -514,6 +581,7 @@ const butterflyMessages = [
 ];
 
 const butterfliesContainer = document.getElementById("butterflies");
+
 for (let i = 0; i < butterflyCount; i++) {
   const butterfly = document.createElement("div");
   butterfly.classList.add("butterfly");
@@ -525,11 +593,10 @@ for (let i = 0; i < butterflyCount; i++) {
 
   const startY = Math.floor(Math.random() * 80) + "%";
   const startX = Math.floor(Math.random() * -20) - 10 + "%";
-
   butterfly.style.top = startY;
   butterfly.style.left = startX;
 
-  const duration = (Math.random() * 15) + 10; 
+  const duration = (Math.random() * 15) + 10;
   const delay = Math.random() * 5;
 
   const flyKeyframes = `
@@ -546,110 +613,145 @@ for (let i = 0; i < butterflyCount; i++) {
   document.head.appendChild(styleSheet);
 
   butterfly.style.animation = `fly${i} ${duration}s linear ${delay}s infinite`;
+
   butterfliesContainer.appendChild(butterfly);
 }
 
-// Heart trail and sparkle on mousemove
+// Pop-up hearts on click anywhere
+document.addEventListener('click', function(e) {
+  const popHeart = document.createElement('div');
+  popHeart.classList.add('pop-heart');
+  popHeart.style.left = e.pageX + 'px';
+  popHeart.style.top = e.pageY + 'px';
+  popHeart.innerText = '❤';
+  document.body.appendChild(popHeart);
+
+  setTimeout(() => {
+    popHeart.remove();
+  }, 2000);
+
+  // Increase love meter on interactions
+  increaseLoveMeter(5);
+});
+
+// Sparkle trail behind cursor
 document.addEventListener('mousemove', function(e){
   const sparkle = document.createElement('div');
   sparkle.classList.add('sparkle');
   sparkle.style.left = e.pageX + 'px';
   sparkle.style.top = e.pageY + 'px';
-  sparkle.style.background = `radial-gradient(circle, rgba(255,255,255,1), rgba(255,182,193,0.6), rgba(255,105,180,0))`;
   document.body.appendChild(sparkle);
-  
-  setTimeout(() => sparkle.remove(), 1000);
+
+  setTimeout(() => {
+    sparkle.remove();
+  }, 1000);
 });
 
-// Pop-up hearts when clicking anywhere
-document.addEventListener('click', function(e) {
-  const heart = document.createElement('div');
-  heart.classList.add('heart');
-  heart.style.left = e.pageX + 'px';
-  heart.style.top = e.pageY + 'px';
-  heart.innerText = '❤';
-  document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 1000);
+// Parallax animations
+document.addEventListener('scroll', function(){
+  let scrollTop = window.pageYOffset;
+  document.querySelector('.clouds').style.backgroundPositionX = -scrollTop * 0.2 + 'px';
+  document.querySelector('.hearts').style.backgroundPositionX = -scrollTop * 0.5 + 'px';
+  document.querySelector('.stars').style.backgroundPositionX = -scrollTop * 0.8 + 'px';
 });
 
 // Carousel
-const carouselSlide = document.getElementById('carouselSlide');
-const carouselImages = carouselSlide.querySelectorAll('img');
-let counter = 0;
+const carouselTrack = document.getElementById('carouselTrack');
+const slides = Array.from(carouselTrack.children);
+const nav = document.getElementById('carouselNav');
 
-document.querySelector('.nextBtn').addEventListener('click', () => {
-  if (counter >= carouselImages.length - 1) return;
-  counter++;
-  carouselSlide.style.transform = 'translateX(' + (-counter * 100) + '%)';
-  playChime();
+slides.forEach((slide, index) => {
+  const btn = document.createElement('button');
+  if(index === 0) btn.classList.add('active');
+  nav.appendChild(btn);
 });
 
-document.querySelector('.prevBtn').addEventListener('click', () => {
-  if (counter <= 0) return;
-  counter--;
-  carouselSlide.style.transform = 'translateX(' + (-counter * 100) + '%)';
-  playChime();
+const navButtons = Array.from(nav.children);
+let currentSlide = 0;
+
+navButtons.forEach((button, index) => {
+  button.addEventListener('click', () => {
+    currentSlide = index;
+    carouselTrack.style.transform = `translateX(-${100 * currentSlide}%)`;
+    navButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+  });
 });
 
 // Wish Jar
-function addWishNote() {
-  const jar = document.getElementById('wishJar');
+function addNote() {
   const note = document.createElement('div');
   note.classList.add('note');
-  note.textContent = '★';
-  jar.appendChild(note);
-  playChime();
+  note.style.backgroundColor = getRandomPastelColor();
+  document.getElementById('wishJar').appendChild(note);
+
   setTimeout(() => note.remove(), 3000);
+
+  // Increase love meter on interaction
+  increaseLoveMeter(3);
 }
 
-// Love meter
-const loveMeterFill = document.getElementById('loveMeterFill');
-let loveLevel = 50; // starting percentage
-function increaseLove() {
-  loveLevel = Math.min(loveLevel + 10, 100);
-  loveMeterFill.style.width = loveLevel + '%';
-  playChime();
+function getRandomPastelColor() {
+  const pastelColors = ['#FFD1DC','#FFE4E1','#E0BBE4','#FFDFD3','#FFCDD2','#F8BBD0','#FCE4EC'];
+  return pastelColors[Math.floor(Math.random()*pastelColors.length)];
 }
 
-// Clock & Greeting
-setInterval(updateClock, 1000);
-updateClock();
-
+// Whimsical Clock
 function updateClock() {
   const now = new Date();
   const hours = now.getHours();
-  const minutes = ('0'+now.getMinutes()).slice(-2);
-  const seconds = ('0'+now.getSeconds()).slice(-2);
-  const clockFace = document.getElementById('clockFace');
-  clockFace.textContent = hours + ':' + minutes + ':' + seconds;
+  const minutes = String(now.getMinutes()).padStart(2,'0');
+  const seconds = String(now.getSeconds()).padStart(2,'0');
+  const day = now.toLocaleDateString('hu-HU', {weekday: 'long'});
+  const date = now.toLocaleDateString('hu-HU');
 
-  const greeting = document.getElementById('greeting');
-  if (hours < 12) {
-    greeting.textContent = "Jó Reggelt, Ragyságom!";
-  } else if (hours < 18) {
-    greeting.textContent = "Szép Napot, Csillagom!";
+  document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+  document.getElementById('dateDisplay').textContent = `${day}, ${date}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Love Meter
+let loveMeterValue = 0;
+function increaseLoveMeter(amount) {
+  loveMeterValue = Math.min(loveMeterValue + amount, 100);
+  document.getElementById('loveMeter').style.width = loveMeterValue + '%';
+}
+
+// Background Music
+const music = new Audio('audio/background-music.mp3');
+music.loop = true;
+music.volume = 0.4; 
+let musicPlaying = false;
+
+document.getElementById('musicToggle').addEventListener('click', () => {
+  if(!musicPlaying) {
+    music.play();
+    musicPlaying = true;
+    document.getElementById('musicToggle').textContent = 'Pause Music';
   } else {
-    greeting.textContent = "Jó Estét, Hercegnőm!";
+    music.pause();
+    musicPlaying = false;
+    document.getElementById('musicToggle').textContent = 'Play Music';
   }
-}
+});
 
-// Music Control
-const bgMusic = document.getElementById('bgMusic');
-function toggleMusic() {
-  if (bgMusic.paused) {
-    bgMusic.play();
-  } else {
-    bgMusic.pause();
-  }
-}
+// Optional Sound effect on hover or click (for buttons)
+document.querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('mouseover', () => {
+    const chime = new Audio('audio/chime.mp3');
+    chime.volume = 0.2;
+    chime.play();
+  });
+});
 
-// Sound effect on interaction (chime)
-function playChime() {
-  const audio = new Audio('https://www.example.com/chime.mp3');
-  audio.volume = 0.3;
-  audio.play();
-}
+// Optional: Add sound effect to compliments button click
+document.querySelectorAll('button')[0].addEventListener('click', () => {
+    const popSound = new Audio('audio/pop.mp3');
+    popSound.volume = 0.3;
+    popSound.play();
+});
 </script>
+
 </body>
 </html>
